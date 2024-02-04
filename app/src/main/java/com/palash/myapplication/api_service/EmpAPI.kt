@@ -1,17 +1,22 @@
 package com.palash.myapplication.api_service
 
+import android.media.Image
 import com.palash.myapplication.models.response.AllEmpListResponse
 import com.palash.myapplication.models.response.delete_record.DeleteRecordResponse
 import com.palash.myapplication.models.response.new_record.request.NewRecordRequest
 import com.palash.myapplication.models.response.new_record.response.NewRecordResponse
 import com.palash.myapplication.models.response.record_update.UpdateRecordResponse
 import com.palash.myapplication.models.response.single_record_response.SingleEmpRecordResponse
+import com.palash.myapplication.models.response.upload_image.UploadResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface EmpAPI {
@@ -30,5 +35,9 @@ interface EmpAPI {
 
     @DELETE("/api/v1/delete/{empId}")
     suspend fun deleteRecord(@Path("empId") empId: Int) : Response<DeleteRecordResponse>
-    
+
+    @Multipart
+    @POST("/api/v1/post/{image}")
+    suspend fun uploadImage(@Part("image") image: MultipartBody.Part) : Response<UploadResponse>
+
 }
